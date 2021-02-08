@@ -1,0 +1,12 @@
+# Instagram
+
+In this repository I will create Instagram from scratch using SwiftUI as the frontend frameword and Firebase as the backend.
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## Project Status
+
+In development.
