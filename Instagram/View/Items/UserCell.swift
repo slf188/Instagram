@@ -9,7 +9,22 @@ import SwiftUI
 
 struct UserCell: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image("oden")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 48, height: 48)
+                .clipShape(Circle())
+            
+            VStack(alignment: .leading) {
+                Text("oden")
+                    .font(.system(size: 16, weight: .semibold))
+                Text("Kozuki Oden")
+                    .font(.system(size: 16))
+            }
+            
+            Spacer()
+        }
     }
 }
 
