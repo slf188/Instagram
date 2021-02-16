@@ -16,12 +16,14 @@ struct ContentView: View {
             if viewModel.userSession == nil {
                 LoginView()
             } else {
-                MainTabView()
+                if let user = viewModel.currentUser {
+                    MainTabView(user: user)
+                }
             }
         }
     }
 }
-
+ 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
