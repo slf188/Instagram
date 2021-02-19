@@ -6,26 +6,30 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FeedCell: View {
+    
+    let post: Post
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image("oden")
+                KFImage(URL(string: post.ownerImageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 36, height: 36)
                     .clipShape(Circle())
                 
-                Text("oden")
+                Text(post.ownerUsername)
                     .font(.system(size: 16, weight: .semibold))
             }
             .padding([.leading, .bottom], 4)
             
-            Image("wano")
+            KFImage(URL(string: post.imageUrl))
                 .resizable()
                 .scaledToFill()
-                .frame(maxHeight: 220)
+                .frame(maxHeight: 420)
                 .clipped()
             
             HStack(spacing: 16) {
@@ -54,14 +58,14 @@ struct FeedCell: View {
             .padding([.top, .bottom], 3)
             .foregroundColor(.black)
             
-            Text("45 likes")
+            Text("\(post.likes) likes")
                 .font(.system(size: 16, weight: .semibold))
                 .padding(.leading, 4)
                 .padding(.bottom, 2)
             
             HStack {
-                Text("oden")
-                    .font(.system(size: 16, weight: .semibold)) + Text(" Wano has its own warriors, the samurai, who are swordsmen so powerful that not even the Marines go near them.")
+                Text(post.ownerUsername)
+                    .font(.system(size: 16, weight: .semibold)) + Text(" \(post.caption)")
                     .font(.system(size: 16))
             }.padding(.horizontal, 4)
             
@@ -74,8 +78,3 @@ struct FeedCell: View {
     }
 }
 
-struct FeedCell_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedCell()
-    }
-}

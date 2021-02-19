@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileActionButtonView: View {
     
     @ObservedObject var viewModel: ProfileViewModel
-    var isFollowed: Bool { return viewModel.user.isFollowed! }
+    var isFollowed: Bool { return viewModel.user.isFollowed ?? false }
     
     var body: some View {
         if viewModel.user.isCurrentUser {
