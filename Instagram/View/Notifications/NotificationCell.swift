@@ -6,49 +6,65 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NotificationCell: View {
+    
+    @ObservedObject var viewModel: NotificationCellViewModel
+    
+    var isFollowed: Bool { return viewModel.notification.isFollowed ?? false }
+    
+    init(viewModel: NotificationCellViewModel) {
+        self.viewModel = viewModel
+    }
     
     @State private var showPostImage = false
     
     var body: some View {
         HStack {
-            Image("oden")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 48, height: 48)
-                .clipShape(Circle())
-            
-            Text("oden")
-                .font(.system(size: 16, weight: .semibold)) + Text(" started following you")
-                .font(.system(size: 16))
+            if let user = viewModel.notification.user {
+                NavigationLink(destination: ProfileView(user: user)) {
+                    KFImage(URL(string: viewModel.notification.profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .clipShape(Circle())
+                    
+                    Text(viewModel.notification.username)
+                        .font(.system(size: 16, weight: .semibold)) + Text(viewModel.notification.type.notificationMessage)
+                        .font(.system(size: 16))
+                }
+            }
             
             Spacer()
             
-            if showPostImage {
-                Image("oden")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 48, height: 48)
-                    .padding(.trailing)
+            if viewModel.notification.type != .follow {
+                if let post = viewModel.notification.post {
+                    NavigationLink(destination: FeedCell(viewModel: FeedCellViewModel(post: post))) {
+                        KFImage(URL(string: post.imageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 48, height: 48)
+                            .clipped()
+                            .padding(.trailing)
+                    }
+                }
             } else {
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    Text("Following")
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 8)
-                        .background(Color(.systemBlue))
-                        .foregroundColor(.white)
-                        .clipShape(Capsule())
+                Button(action: {
+                    isFollowed ? viewModel.unfollow() : viewModel.follow()
+                }, label: {
+                    Text(isFollowed ? "Following" : "Follow")
                         .font(.system(size: 16, weight: .semibold))
+                        .frame(width: 100, height: 32)
+                        .background(isFollowed ? Color.white : Color.blue)
+                        .foregroundColor(isFollowed ? .black : .white)
+                        .cornerRadius(3)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 3)
+                                .stroke(Color.gray, lineWidth: isFollowed ? 1 : 0)
+                        )
                 })
             }
-            
         }.padding(.horizontal)
-    }
-}
-
-struct NotificationCell_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationCell()
     }
 }
