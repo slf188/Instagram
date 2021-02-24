@@ -44,13 +44,15 @@ struct LoginView: View {
                     HStack {
                         Spacer()
                         
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                            Text("Forgot Password?")
-                                .font(.system(size: 14, weight:.semibold))
-                                .foregroundColor(.white)
-                                .padding(.top)
-                                .padding(.trailing, 20)
-                        })
+                        NavigationLink(
+                            destination: ResetPasswordView(email: $email),
+                            label: {
+                                Text("Forgot Password?")
+                                    .font(.system(size: 14, weight:.semibold))
+                                    .foregroundColor(.white)
+                                    .padding(.top)
+                                    .padding(.trailing, 20)
+                            })
                     }
                     
                     Button(action: {

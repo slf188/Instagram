@@ -25,7 +25,7 @@ enum UploadType {
 
 struct ImageUploader {
     static func uploadImage(image: UIImage, type: UploadType,completion: @escaping(String) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.2) else { return }
         
         let ref = type.filePath
         

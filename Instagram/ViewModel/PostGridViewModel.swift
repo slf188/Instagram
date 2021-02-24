@@ -31,7 +31,7 @@ class PostGridViewModel: ObservableObject {
     }
     
     func fetchExplorePagePosts() {
-        COLLECTION_POSTS.getDocuments { snapshot, _ in
+        COLLECTION_POSTS.order(by: "likes", descending: true).getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
             self.posts = documents.compactMap({ try? $0.data(as: Post.self) })
         }
@@ -40,7 +40,8 @@ class PostGridViewModel: ObservableObject {
     func fetchUserPosts(forUid uid: String) {
         COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid).getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
-            self.posts = documents.compactMap({ try? $0.data(as: Post.self) })
+            let posts = documents.compactMap({ try? $0.data(as: Post.self) })
+            self.posts = posts.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
         }
     }
 }

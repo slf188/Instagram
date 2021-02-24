@@ -80,7 +80,7 @@ struct FeedCell: View {
                     .font(.system(size: 16))
             }.padding(.horizontal, 4)
             
-            Text("2d")
+            Text(viewModel.timeStampString)
                 .font(.system(size: 16))
                 .foregroundColor(.gray)
                 .padding(.leading, 8)
