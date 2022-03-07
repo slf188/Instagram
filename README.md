@@ -9,4 +9,7 @@ Please make sure to update tests as appropriate.
 
 ## Project Status
 
-In development.
+Finished.
+
+## Author
+[Felipe Vallejo](https://www.linkedin.com/in/felipe-vallejo-200188/)
